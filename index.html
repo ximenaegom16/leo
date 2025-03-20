@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spider-Man con corazones</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+        }
+        canvas {
+            background-color: black;
+            display: block;
+            margin: 20px auto;
+        }
+        h2 {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="spidermanCanvas" width="400" height="400"></canvas>
+    <h2>Eres mi superhéroe favorito! 💕</h2>
+
+    <script>
+        const canvas = document.getElementById("spidermanCanvas");
+        const ctx = canvas.getContext("2d");
+
+        function drawSpiderman() {
+            // Cara (roja)
+            ctx.beginPath();
+            ctx.arc(200, 200, 100, 0, Math.PI * 2);
+            ctx.fillStyle = "red";
+            ctx.fill();
+            ctx.strokeStyle = "black";
+            ctx.lineWidth = 5;
+            ctx.stroke();
+            ctx.closePath();
+
+            // Ojo izquierdo
+            ctx.beginPath();
+            ctx.ellipse(165, 180, 30, 50, Math.PI / 6, 0, Math.PI * 2);
+            ctx.fillStyle = "white";
+            ctx.fill();
+            ctx.strokeStyle = "black";
+            ctx.lineWidth = 4;
+            ctx.stroke();
+            ctx.closePath();
+
+            // Ojo derecho
+            ctx.beginPath();
+            ctx.ellipse(235, 180, 30, 50, -Math.PI / 6, 0, Math.PI * 2);
+            ctx.fillStyle = "white";
+            ctx.fill();
+            ctx.strokeStyle = "black";
+            ctx.lineWidth = 4;
+            ctx.stroke();
+            ctx.closePath();
+
+            // Dibujar telaraña
+            ctx.strokeStyle = "black";
+            ctx.lineWidth = 2;
+
+            // Líneas radiales
+            for (let i = 0; i < 8; i++) {
+                let angle = (Math.PI / 4) * i;
+                let x = 200 + Math.cos(angle) * 100;
+                let y = 200 + Math.sin(angle) * 100;
+                ctx.beginPath();
+                ctx.moveTo(200, 200);
+                ctx.lineTo(x, y);
+                ctx.stroke();
+                ctx.closePath();
+            }
+
+            // Círculos concéntricos de la telaraña
+            for (let r = 30; r < 100; r += 20) {
+                ctx.beginPath();
+                ctx.arc(200, 200, r, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.closePath();
+            }
+        }
+
+        function drawHearts() {
+            const heartPositions = [
+                {x: 120, y: 100}, {x: 280, y: 100}, {x: 80, y: 200},
+                {x: 320, y: 200}, {x: 120, y: 280}, {x: 280, y: 280},
+                {x: 200, y: 60}, {x: 200, y: 320}
+            ];
+
+            heartPositions.forEach(pos => {
+                ctx.font = "25px Arial";
+                ctx.fillStyle = "pink";
+                ctx.fillText("❤️", pos.x, pos.y);
+            });
+        }
+
+        function drawScene() {
+            drawSpiderman();
+            drawHearts();
+        }
+
+        drawScene();
+    </script>
+
+</body>
+</html>
